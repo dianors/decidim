@@ -97,6 +97,17 @@ module Decidim
       def visible?
         published? && !try(:private_space?)
       end
+
+      # Defines a way to get the user roles for the current participatory space.
+      # You should overwrite this method in the implementer class to define how
+      # to get the correct values.
+      #
+      # role_name - A symbol or string identifying the role name
+      #
+      # Returns an ActiveRecord::Relation.
+      def user_roles(_role_name)
+        self.class.none
+      end
     end
 
     class_methods do
