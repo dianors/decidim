@@ -62,6 +62,13 @@ module Decidim
       scope :except_drafts, -> { where.not(published_at: nil) }
       scope :published, -> { where.not(published_at: nil) }
 
+      def self.with_valuation_assigned_to(user, space)
+        valuator_roles = space.user_roles(:valuator).where(user: user)
+
+        includes(:valuation_assignments)
+          .where(decidim_proposals_valuation_assignments: { valuator_role_id: valuator_roles })
+      end
+
       acts_as_list scope: :decidim_component_id
 
       searchable_fields({
