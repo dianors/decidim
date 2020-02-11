@@ -37,6 +37,12 @@ module Decidim
 
         t(i18n_key, scope: "decidim.proposals.proposals.show")
       end
+
+      def proposal_has_costs?
+        @proposal.cost.present? &&
+          translated_attribute(@proposal.cost_report).present? &&
+          translated_attribute(@proposal.execution_period).present?
+      end
     end
   end
 end
