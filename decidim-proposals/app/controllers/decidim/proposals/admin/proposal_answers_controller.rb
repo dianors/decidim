@@ -8,12 +8,12 @@ module Decidim
         helper_method :proposal
 
         def edit
-          enforce_permission_to :create, :proposal_answer
+          enforce_permission_to :create, :proposal_answer, proposal: proposal
           @form = form(Admin::ProposalAnswerForm).from_model(proposal)
         end
 
         def update
-          enforce_permission_to :create, :proposal_answer
+          enforce_permission_to :create, :proposal_answer, proposal: proposal
           @form = form(Admin::ProposalAnswerForm).from_params(params)
 
           Admin::AnswerProposal.call(@form, proposal) do
@@ -30,6 +30,10 @@ module Decidim
         end
 
         private
+
+        def skip_manage_component_permission
+          true
+        end
 
         def proposal
           @proposal ||= Proposal.where(component: current_component).find(params[:id])
