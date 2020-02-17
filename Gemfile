@@ -4,6 +4,7 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
+gem "decidim-deploy-heroku", git: "https://github.com/codegram/decidim-deploy-heroku.git"
 gem "decidim", path: "."
 gem "decidim-conferences", path: "."
 gem "decidim-consultations", path: "."
